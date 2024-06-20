@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Conversor de Moedas</title>
+<style>
+    /* Estilos CSS */
+</style>
+</head>
+<body>
+<h1>Conversor de Moedas</h1>
+<div>
+    <label for="amount">Valor a ser convertido:</label>
+    <input type="text" id="amount" placeholder="Insira o valor">
+</div>
+<div>
+    <label for="fromCurrency">Moeda de origem:</label>
+    <select id="fromCurrency">
+        <option value="BRL">Real brasileiro (BRL)</option>
+        <option value="USD">Dólar americano (USD)</option>
+        <option value="EUR">Euro (EUR)</option>
+        <option value="GBP">Libra esterlina (GBP)</option>
+        <option value="JPY">Iene japonês (JPY)</option>
+    </select>
+</div>
+<div>
+    <label for="toCurrency">Moeda de destino:</label>
+    <select id="toCurrency">
+        <option value="BRL">Real brasileiro (BRL)</option>
+        <option value="USD">Dólar americano (USD)</option>
+        <option value="EUR">Euro (EUR)</option>
+        <option value="GBP">Libra esterlina (GBP)</option>
+        <option value="JPY">Iene japonês (JPY)</option>
+    </select>
+</div>
+<button onclick="convertCurrency()">Converter</button>
+<div id="result"></div>
+
+<script>
+    // Dados das cotações (valores fictícios)
+    const exchangeRates = {
+        BRL: {
+            USD: 0.18,
+            EUR: 0.15,
+            GBP: 0.13,
+            JPY: 20.10
+        },
+        USD: {
+            BRL: 5.62,
+            EUR: 0.83,
+            GBP: 0.72,
+            JPY: 110.22
+        },
+        EUR: {
+            BRL: 6.57,
+            USD: 1.20,
+            GBP: 0.87,
+            JPY: 130.84
+        },
+        GBP: {
+            BRL: 7.87,
+            USD: 1.39,
+            EUR: 1.15,
+            JPY: 153.67
+        },
+        JPY: {
+            BRL: 0.05,
+            USD: 0.0091,
+            EUR: 0.0076,
+            GBP: 0.0065
+        }
+    };
+
+    // Função para converter a moeda
+    function convertCurrency() {
+        const amount = parseFloat(document.getElementById('amount').value);
+        const fromCurrency = document.getElementById('fromCurrency').value;
+        const toCurrency = document.getElementById('toCurrency').value;
+
+        if (isNaN(amount)) {
+            document.getElementById('result').innerText = 'Por favor, insira um valor numérico.';
+            return;
+        }
+
+        const exchangeRate = exchangeRates[fromCurrency][toCurrency];
+        const convertedAmount = amount * exchangeRate;
+
+        document.getElementById('result').innerText = `${amount.toFixed(2)} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency} (Taxa: ${exchangeRate})`;
+    }
+</script>
+</body>
+</html>
